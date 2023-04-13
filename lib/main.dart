@@ -19,7 +19,7 @@ void main() async {
       .setConnectTimeout(const Duration(milliseconds: 5000))
       .create();
   await GetStorage.init();
-  GetStorage().write(StoreKey.API, aiApiKey);
+  // GetStorage().write(StoreKey.API, aiApiKey);
   runApp(const MyApp());
 }
 
@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+        themeMode:ThemeMode.dark,
         theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
         darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
         title: 'Flutter ChatBOT',

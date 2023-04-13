@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:chat/app/modules/chat_module/chat_controller.dart';
+import 'package:get_storage/get_storage.dart';
+import '../../data/provider/constants.dart';
 import '../../routes/app_pages.dart';
 import '../../widgets/chat_widget.dart';
 import '../../widgets/text_widget.dart';
@@ -97,7 +99,14 @@ class ChatPage extends GetView<ChatController> {
                       ),
                       IconButton(
                           onPressed: () async {
-                            await _sendMessage();
+                            if (GetStorage()
+                                    .read<String>(StoreKey.API)
+                                    ?.isEmpty ??
+                                true) {
+                              showApiDialog();
+                            } else {
+                              await _sendMessage();
+                            }
                           },
                           icon: Icon(
                             Icons.send,

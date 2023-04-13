@@ -1,9 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import '../../generated/assets.dart';
-import '../utils/toast.dart';
 
 class ChatWidget extends StatelessWidget {
   const ChatWidget(
@@ -106,7 +106,7 @@ class AiChatView extends StatelessWidget {
                 ? InkWell(
                     onLongPress: () {
                       Clipboard.setData(ClipboardData(text: msg.trim()));
-                      showToast("已经复制到剪切板");
+                      EasyLoading.showToast("已经复制到剪切板");
                     },
                     child: DefaultTextStyle(
                       style: TextStyle(

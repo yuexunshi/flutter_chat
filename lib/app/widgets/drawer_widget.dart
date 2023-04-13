@@ -59,42 +59,44 @@ class DrawerWidget extends StatelessWidget {
     );
   }
 
-  void showApiDialog() {
-    String newName = '';
-    Get.defaultDialog(
-        title: 'API Setting',
-        content: TextField(
-          // display the current name of the conversation
-          decoration: InputDecoration(
-            hintText: GetStorage().read(StoreKey.API) ?? 'Enter API Key',
-          ),
-          onChanged: (value) {
-            newName = value;
+
+}
+
+void showApiDialog() {
+  String newName = '';
+  Get.defaultDialog(
+      title: 'API Setting',
+      content: TextField(
+        // display the current name of the conversation
+        decoration: InputDecoration(
+          hintText: GetStorage().read(StoreKey.API) ?? 'Enter API Key',
+        ),
+        onChanged: (value) {
+          newName = value;
+        },
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('Cancel'),
+          onPressed: () {
+            Get.back();
           },
         ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Cancel'),
-            onPressed: () {
-              Get.back();
-            },
-          ),
-          TextButton(
-            child: const Text(
-              'Save',
-              style: TextStyle(
-                color: Color(0xff55bb8e),
-              ),
+        TextButton(
+          child: const Text(
+            'Save',
+            style: TextStyle(
+              color: Color(0xff55bb8e),
             ),
-            onPressed: () {
-              if (newName == '') {
-                Get.back();
-                return;
-              }
-              GetStorage().write(StoreKey.API, newName);
-              Get.back();
-            },
           ),
-        ]);
-  }
+          onPressed: () {
+            if (newName == '') {
+              Get.back();
+              return;
+            }
+            GetStorage().write(StoreKey.API, newName);
+            Get.back();
+          },
+        ),
+      ]);
 }

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:chat/app/models/chat_bean.dart';
 import 'package:chat/app/models/model_list.dart';
-import 'package:chat/app/utils/toast.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_nb_net/flutter_net.dart';
 import '../../models/chat_model.dart';
 import '../provider/constants.dart';
@@ -44,7 +44,7 @@ class ChatRepository {
         }
       });
     }, failure: (msg, __) {
-      showToast(msg);
+      EasyLoading.showToast(msg);
     });
 
     return chatList;

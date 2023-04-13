@@ -32,9 +32,6 @@ class _ExpandingCardsState extends State<ExpandingCards>
     final CurvedAnimation curve =
         CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
     _animation = Tween(begin: 0.0, end: 1.0).animate(curve);
-    widget.items.forEach((element) {
-      debugPrint('==element=$element');
-    });
   }
 
   @override
@@ -85,50 +82,43 @@ class AnimatedCardItem extends StatefulWidget {
   final VoidCallback onTap;
 
   const AnimatedCardItem({
-    super.key,
+    Key? key, // 使用Key?类型
     required this.image,
     required this.animation,
     required this.isExpanded,
     required this.onTap,
-  });
+  }) : super(key: key); // 使用super关键字
 
   @override
   State<AnimatedCardItem> createState() => _AnimatedCardItemState();
 }
 
 class _AnimatedCardItemState extends State<AnimatedCardItem> {
-  bool shouldRebuild = false;
+  static const double collapsedWidth = 70; // 将常量提取到类成员变量中
+  late double screenWidth; // 将Get.size.width提取到类成员变量中
+
+  @override
+  void initState() {
+    super.initState();
+    screenWidth = Get.size.width * 0.5; // 初始化屏幕宽度
+  }
 
   @override
   void didUpdateWidget(covariant AnimatedCardItem oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.isExpanded != widget.isExpanded) {
-      shouldRebuild = true;
-    } else {
-      shouldRebuild = false;
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    const double collapsedWidth = 70;
     return GestureDetector(
       onTap: widget.onTap,
       child: AnimatedBuilder(
         animation: widget.animation,
         builder: (context, child) {
-          double value = shouldRebuild
-              ? widget.isExpanded
-                  ? widget.animation.value
-                  : 1 - widget.animation.value
-              : widget.isExpanded
-                  ? 1
-                  : 0;
-
-          double w = Get.size.width * 0.5;
-
+          double value =
+          widget.isExpanded ? widget.animation.value : 1 - widget.animation.value;
           return Container(
-            width: collapsedWidth + value * w,
+            width: collapsedWidth + value * screenWidth,
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,

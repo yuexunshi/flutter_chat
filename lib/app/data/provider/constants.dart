@@ -1,5 +1,5 @@
 const baseUrl = 'https://api.openai.com/v1';
-const aiApiKey = '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';
+// const aiApiKey = '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';
 const aiModel = "gpt-3.5-turbo";
 
 abstract class StoreKey {
